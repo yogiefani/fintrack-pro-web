@@ -4,7 +4,6 @@ import { db } from '@/lib/db';
 import { profiles, transactions, aiConversations, debts } from '@/lib/db/schema';
 import { sql, desc } from 'drizzle-orm';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Users, Activity, MessageSquare, HandCoins, ShieldAlert } from 'lucide-react';
 import { UserManagementTable } from '@/components/admin/UserManagementTable';
 
@@ -89,6 +88,7 @@ export default async function AdminDashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             <UserManagementTable users={allUsers as any} isSuperAdmin={isSuperAdmin} />
           </CardContent>
         </Card>

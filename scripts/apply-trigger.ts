@@ -19,7 +19,7 @@ async function run() {
     await sql.unsafe(script);
     console.log('✅ Trigger berhasil dibuat!');
     console.log('   Sekarang setiap user baru yang daftar akan otomatis masuk ke tabel profiles.');
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('❌ Gagal:', err.message);
   }
   process.exit(0);

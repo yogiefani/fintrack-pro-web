@@ -36,7 +36,6 @@ export function ScanReceiptModal({ open, onOpenChange, categories }: ScanReceipt
   const [step, setStep] = useState<ScanStep>('upload');
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [scanResult, setScanResult] = useState<ReceiptScanResult & { imageUrl?: string } | null>(null);
   const [editedResult, setEditedResult] = useState<ReceiptScanResult | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -71,11 +70,11 @@ export function ScanReceiptModal({ open, onOpenChange, categories }: ScanReceipt
       if (!res.ok) throw new Error(await res.text());
 
       const data = await res.json();
-      setScanResult(data);
       setEditedResult(data);
       setStep('review');
-    } catch (err: any) {
-      setError('Gagal memindai nota. Pastikan gambar jelas dan coba lagi.');
+    } catch (err: unknown) {
+      console.error(err);
+      setError(err instanceof Error ? err.message : 'Terjadi kesalahan saat memproses gambar');
       setStep('upload');
     }
   };
@@ -170,6 +169,7 @@ export function ScanReceiptModal({ open, onOpenChange, categories }: ScanReceipt
               </div>
             ) : (
               <div className="relative rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={previewUrl} alt="Preview nota" className="w-full max-h-64 object-contain bg-slate-50 dark:bg-slate-900" />
                 {step !== 'scanning' && (
                   <button

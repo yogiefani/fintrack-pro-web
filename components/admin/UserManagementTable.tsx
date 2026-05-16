@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react';
 import { format } from 'date-fns';
 import { id as idLocale } from 'date-fns/locale';
-import { MoreHorizontal, ShieldAlert, Trash2, Edit, Loader2 } from 'lucide-react';
+import { MoreHorizontal, ShieldAlert, Trash2, Loader2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -56,6 +56,7 @@ export function UserManagementTable({ users, isSuperAdmin }: { users: UserProfil
       return;
     }
     startTransition(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res = await updateUserRole(selectedUser.id, newRole as any);
       if (res?.error) alert(res.error);
       setDialogMode(null);

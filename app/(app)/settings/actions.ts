@@ -25,8 +25,8 @@ export async function updateProfile(formData: FormData) {
 
     revalidatePath('/', 'layout');
     return { success: true };
-  } catch (err: any) {
-    return { error: err.message };
+  } catch (err: unknown) {
+    return { error: err instanceof Error ? err.message : 'Unknown error' };
   }
 }
 

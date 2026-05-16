@@ -4,7 +4,6 @@ import { useState, useTransition } from 'react';
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -60,9 +59,13 @@ export function StockPortfolio({ holdings }: { holdings: Holding[] }) {
     const fd = new FormData();
     Object.entries(form).forEach(([k, v]) => { if (v) fd.set(k, v); });
     startTransition(async () => {
-      await createHolding(fd);
-      setOpen(false);
-      setForm({ ticker: '', company_name: '', lot_quantity: '', avg_buy_price: '', broker: '', sector: '' });
+      try {
+        await createHolding(fd);
+        setOpen(false);
+        setForm({ ticker: '', company_name: '', lot_quantity: '', avg_buy_price: '', broker: '', sector: '' });
+      } catch (err: unknown) {
+        alert(err instanceof Error ? err.message : 'Unknown error');
+      }
     });
   };
 

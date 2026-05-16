@@ -24,7 +24,7 @@ export default async function DebtsPage() {
           Lacak semua catatan hutang dan piutang Anda secara terorganisir.
         </p>
       </div>
-      <DebtTracker debts={debtList as any} />
+      <DebtTracker initialDebts={debtList} />
     </div>
   );
 }

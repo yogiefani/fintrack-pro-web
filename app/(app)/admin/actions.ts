@@ -39,8 +39,8 @@ export async function updateUserRole(userId: string, newRole: 'super_admin' | 'a
 
     revalidatePath('/admin');
     return { success: true };
-  } catch (err: any) {
-    return { error: err.message };
+  } catch (err: unknown) {
+    return { error: err instanceof Error ? err.message : 'Unknown error' };
   }
 }
 
@@ -59,7 +59,7 @@ export async function deleteUser(userId: string) {
 
     revalidatePath('/admin');
     return { success: true };
-  } catch (err: any) {
-    return { error: err.message };
+  } catch (err: unknown) {
+    return { error: err instanceof Error ? err.message : 'Unknown error' };
   }
 }

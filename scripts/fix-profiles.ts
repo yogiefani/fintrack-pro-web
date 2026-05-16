@@ -39,7 +39,7 @@ async function fixProfiles() {
         role: user.user_metadata?.role || 'member',
       }).onConflictDoNothing();
       console.log(`✅ Profile untuk ${user.email} tersinkronisasi.`);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(`❌ Gagal sinkronisasi ${user.email}:`, err.message);
     }
   }

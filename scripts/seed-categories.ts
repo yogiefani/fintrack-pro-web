@@ -46,7 +46,7 @@ async function seedCategories() {
       await db.insert(categories).values(cat);
     }
     console.log('✅ Berhasil menambahkan', defaultCategories.length, 'kategori default!');
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('❌ Gagal menambahkan kategori:', err.message);
   }
 

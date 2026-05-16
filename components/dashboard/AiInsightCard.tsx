@@ -12,9 +12,9 @@ export function AiInsightCard() {
             <Sparkles className="w-5 h-5 text-yellow-300" />
             <h3 className="font-semibold text-white">Gemini Insight</h3>
           </div>
-          <p className="text-sm text-purple-100 leading-relaxed">
-            Pengeluaran kategori "Makanan" Anda naik 15% bulan ini. Pertimbangkan untuk mengurangi makan di luar agar budget tetap aman.
-          </p>
+          <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+          &quot;Halo! Saya AI Advisor Anda. Berdasarkan aktivitas finansial Anda bulan ini, pengeluaran terbesar Anda ada di kategori Makanan. Apakah Anda ingin tips berhemat?&quot;
+        </p>
         </div>
         <Link href="/ai-advisor" className="mt-4 text-xs font-semibold uppercase tracking-wider text-yellow-300 hover:text-white transition-colors flex items-center">
           Tanya AI Advisor &rarr;

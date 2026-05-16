@@ -54,9 +54,14 @@ export function SubscriptionManager({ subscriptions, categories }: { subscriptio
     const fd = new FormData();
     Object.entries(form).forEach(([k, v]) => { if (v) fd.set(k, v); });
     startTransition(async () => {
-      await createSubscription(fd);
-      setOpen(false);
-      setForm({ description: '', amount: '', category_id: '', recurring_interval: 'monthly', date: '' });
+      try {
+        await createSubscription(fd);
+        setOpen(false);
+      } catch (err: unknown) {
+        alert(err instanceof Error ? err.message : 'Unknown error');
+      } finally {
+        setForm({ description: '', amount: '', category_id: '', recurring_interval: 'monthly', date: '' });
+      }
     });
   };
 

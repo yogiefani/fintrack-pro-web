@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
@@ -61,7 +61,6 @@ export function BudgetManager({ budgets, categories, currentMonth, currentYear }
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const totalBudget = budgets.reduce((s, b) => s + b.budgetAmount, 0);
   const totalSpent = budgets.reduce((s, b) => s + b.spentAmount, 0);
-  const savingRate = totalBudget > 0 ? Math.max(0, ((totalBudget - totalSpent) / totalBudget) * 100) : 0;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,7 +120,7 @@ export function BudgetManager({ budgets, categories, currentMonth, currentYear }
           <div className="flex flex-col items-center justify-center py-16 text-slate-400 dark:text-slate-600">
             <Target className="w-12 h-12 mb-3" />
             <p className="font-medium">Belum ada budget bulan ini</p>
-            <p className="text-sm mt-1">Klik "Set Budget" untuk mulai merencanakan pengeluaran</p>
+            <p className="text-sm mt-1">Klik &quot;Set Budget&quot; untuk mulai merencanakan pengeluaran</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">

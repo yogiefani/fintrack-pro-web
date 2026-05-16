@@ -20,7 +20,7 @@ export function CashflowChart({ data }: { data: ChartData[] }) {
               <Tooltip 
                 cursor={{ fill: 'transparent' }}
                 contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                formatter={(value: any) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(value || 0)}
+                formatter={(value: number | string | (number | string)[]) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(Number(value) || 0)}
               />
               <Bar dataKey="income" fill="#22c55e" radius={[4, 4, 0, 0]} barSize={20} />
               <Bar dataKey="expense" fill="#ef4444" radius={[4, 4, 0, 0]} barSize={20} />

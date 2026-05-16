@@ -17,7 +17,7 @@ async function alterEnum() {
     await sql`ALTER TYPE role ADD VALUE IF NOT EXISTS 'app_admin'`;
     await sql`ALTER TYPE role ADD VALUE IF NOT EXISTS 'manager'`;
     console.log('✅ Berhasil menambahkan enum!');
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error(`❌ Gagal alter enum:`, err.message);
   }
   process.exit(0);

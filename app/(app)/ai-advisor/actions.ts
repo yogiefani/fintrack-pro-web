@@ -92,8 +92,11 @@ Berikut adalah data keuangan user saat ini: ${financialContext}`;
     });
 
     return { success: true };
-  } catch (err: any) {
-    console.error('Gemini error:', err);
-    return { error: 'Gagal terhubung ke AI Advisor.' };
+  } catch (error: unknown) {
+    console.error('AI Error:', error);
+    return { 
+      error: 'Terjadi kesalahan saat menghubungi AI. Silakan coba lagi.',
+      details: error instanceof Error ? error.message : String(error)
+    };
   }
 }
