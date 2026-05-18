@@ -7,12 +7,18 @@ import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { createClient as createServerClient } from '@/lib/supabase/server';
 
-// Create admin client bypassing RLS
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  { auth: { autoRefreshToken: false, persistSession: false } }
-);
+function createSupabaseAdminClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error('Supabase admin environment variables are not configured.');
+  }
+
+  return createClient(supabaseUrl, serviceRoleKey, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+}
 
 async function checkIsSuperAdmin() {
   const supabase = await createServerClient();
@@ -28,6 +34,8 @@ export async function updateUserRole(userId: string, newRole: 'super_admin' | 'a
   if (!isSuperAdmin) return { error: 'Hanya Super Admin yang bisa mengubah role.' };
 
   try {
+    const supabaseAdmin = createSupabaseAdminClient();
+
     // 1. Update in Auth User Metadata
     const { error: authErr } = await supabaseAdmin.auth.admin.updateUserById(userId, {
       user_metadata: { role: newRole }
@@ -49,6 +57,8 @@ export async function deleteUser(userId: string) {
   if (!isSuperAdmin) return { error: 'Hanya Super Admin yang bisa menghapus user.' };
 
   try {
+    const supabaseAdmin = createSupabaseAdminClient();
+
     // 1. Delete from Auth (this will cascade to profiles if trigger is set up correctly, but we can do both)
     const { error: authErr } = await supabaseAdmin.auth.admin.deleteUser(userId);
     if (authErr) throw authErr;
